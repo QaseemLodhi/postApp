@@ -1,0 +1,70 @@
+<div id="wrapper">
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+        <h1>Post App</h1>
+      </li>
+    </ul>
+  </div>
+  <nav class="navbar navbar-default">
+    <div class="col-lg-11">
+      <h3>{{currentUser.firstName + ' ' + currentUser.lastName }}</h3>
+    </div>
+    <div class="col-lg-1">
+      <a [routerLink]="['/login']">Logout</a>
+    </div>
+  </nav>
+
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <form #postForm="ngForm" (submit)="createPost(postForm.valid, postForm.value)" novalidate>
+          <div class="col-lg-4">
+            <label class="control-label">Category</label>
+            <select class="form-control" name="postCategory" [(ngModel)]="postCategory">
+                        <option *ngFor="let category of categories">{{category}}</option>
+            </select>
+          </div>
+          <div class="col-lg-3">
+            
+            <div><label class="control-label">Title</label><input type="text" name="postTitle" [(ngModel)]="postTitle" placeholder="Enter post title" id="createPost" class="form-control">
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <label class="control-label">Description</label>
+            <div class="form-group">
+              <textarea class="form-control" rows="1" id="createPost" name="postDescription" [(ngModel)]="postDescription" placeholder="Enter post description"></textarea>
+            </div>
+          </div>
+
+          <div class="col-lg-1">
+            <label class="control-label" style="color:white">cxzcxz</label>
+            <button type="button" type="submit" class="btn btn-primary btn-sm">
+                         <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+          </div>
+        </form>
+        <div style="margin-top: 20px" class="col-lg-12" *ngFor="let post of posts">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              {{post.postTitle}}
+              <button type="button" (click)="removePost(post._id)" class="btn btn-primary btn-sm pull-right">
+                  <span class="glyphicon glyphicon-remove"></span>
+              </button>
+            </div>
+            <div class="panel-body">
+              <div>
+                {{post.postCategory}}:
+              </div>
+              <div>
+                {{post.postDescription}}
+              </div>
+
+            </div>
+
+            <div class="panel-footer">{{post.date | date:'fullDate'}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
